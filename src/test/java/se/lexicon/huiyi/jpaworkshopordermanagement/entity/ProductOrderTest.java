@@ -43,6 +43,9 @@ class ProductOrderTest {
 
     @Test
     void removeOrderItem() {
+        assertTrue(productOrder.removeOrderItem(orderItem1));
+        assertFalse(orderItemList.contains(orderItem1));
+        assertEquals(1, orderItemList.size());
     }
 
     @Test

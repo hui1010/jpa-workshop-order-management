@@ -41,6 +41,7 @@ public class ProductOrder {
     }
 
     public boolean removeOrderItem(OrderItem orderItem){
+        boolean beRemoved = false;
         if (orderItems == null){
             orderItems = new ArrayList<>();
         }
@@ -50,12 +51,12 @@ public class ProductOrder {
         }
 
         if (orderItems.contains(orderItem)){
-            orderItems.remove(orderItem);
+            beRemoved = orderItems.remove(orderItem);
             orderItem.setProductOrder(null);
-            return true;
+
         }
 
-        return false;
+        return beRemoved;
     }
 
     public double calculateOrderPrice(){
