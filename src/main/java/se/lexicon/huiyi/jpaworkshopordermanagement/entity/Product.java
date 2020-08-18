@@ -1,13 +1,22 @@
 package se.lexicon.huiyi.jpaworkshopordermanagement.entity;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import java.math.BigDecimal;
 import java.util.Objects;
 
+@Entity
 public class Product {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
     private String name;
-    //should be BigDecimal in real life cases
-    private double price;
+
+    private double price;//should be BigDecimal in real life cases
 
     public Product() {
     }

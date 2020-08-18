@@ -1,15 +1,31 @@
 package se.lexicon.huiyi.jpaworkshopordermanagement.entity;
 
+import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
 
+@Entity
 public class ProductOrder {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
     private LocalDateTime orderDateTime;
+
+    @OneToMany(orphanRemoval = true,
+            fetch = FetchType.LAZY,
+            cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    //ProductOrder is the parent, inside the orderItem, there is a @ManyToOne
+    //if this orderItems is removed from the ProductOrder, means it is parentless
+    //if the orderItem doesn't any parent, it should be removed
     private List<OrderItem> orderItems;
+
+    @ManyToOne(fetch = FetchType.EAGER,
+            cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     private AppUser customer;
 
     public ProductOrder() {
@@ -116,6 +132,5 @@ public class ProductOrder {
                 ", orderDateTime=" + orderDateTime +
                 '}';
     }
-
 
 }
